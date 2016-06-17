@@ -16,20 +16,25 @@ export const DELETE_SENSOR = 'DELETE_SENSOR';
 
 export function fetchSensors() {
     //const request = axios.get(`${SENSING_WORLD_URL}/sensors/list${API_KEY}`);
+    console.log("fetchSensors()");
+    const request =  [
+        { id: 1,
+            name: "Outside temperature",
+            usage_token: "Temperature",
+            lat: 61.466473,
+            lon: 24.050716},
+        { id: 2,
+            name: "Kitchen temperature",
+            usage_token: "Temperature",
+            lat: 61.466306,
+            lon: 24.050828}
+
+    ];
+
     return {
         type: FETCH_SENSORS,
-        //payload: request
-        payload: [
-            { name: "Outside temperature",
-                usage_token: "usagetoken.temperature",
-                lat: 61.466473,
-                lon: 24.050716},
-            { name: "Kitchen temperature",
-                usage_token: "usagetoken.temperature",
-                lat: 61.466306,
-                lon: 24.050828}
+        payload: request,
 
-        ]
     };
 }
 

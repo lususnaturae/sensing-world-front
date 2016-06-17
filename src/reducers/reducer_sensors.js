@@ -1,18 +1,19 @@
 /**
  * Created by marco on 17.6.2016.
  */
-export default function (state = null, action) {
+import { FETCH_SENSORS } from '../actions/index';
 
-    return [
-        { name: "Outside temperature",
-            usage_token: "usagetoken.temperature",
-            lat: 61.466473,
-            lon: 24.050716},
-        { name: "Kitchen temperature",
-            usage_token: "usagetoken.temperature",
-            lat: 61.466306,
-            lon: 24.050828}
+const INITIAL_STATE = { sensors: [], activeSensor: null };
 
-    ]
+export default function (state = INITIAL_STATE, action) {
+    console.log("reducer_sensors");
+    console.log(action);
+    switch (action.type) {
+        case FETCH_SENSORS:
+            return { ...state, sensors: action.payload}
+        default:
+            return state;
+    }
+
 
 }

@@ -40,24 +40,20 @@ export function fetchSensors() {
     return {
              type: FETCH_SENSORS,
              payload: [
-                 { name: 'Outside temperature'},
-                 { name: 'Kitchen temperature'}
+                 { id: 1,
+                     name: 'Outside temperature',
+                     usage_token: 'Temperature',
+                     lat: 61.466473,
+                     lon: 24.050716},
+                 { id: 2,
+                     name: 'Kitchen temperature',
+                     usage_token: 'Temperature',
+                     lat: 61.466306,
+                     lon: 24.050828}
 
              ]
     };
-    // payload: [
-    //     { id: 1,
-    //         name: 'Outside temperature',
-    //         usage_token: 'Temperature',
-    //         lat: 61.466473,
-    //         lon: 24.050716},
-    //     { id: 2,
-    //         name: 'Kitchen temperature',
-    //         usage_token: 'Temperature',
-    //         lat: 61.466306,
-    //         lon: 24.050828}
-    //
-    // ]
+    
 
 }
 

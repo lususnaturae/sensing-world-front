@@ -121,7 +121,7 @@ export function fetchSensors() {
 // export function createSensorSuccess(newSensor) {
 //     return {
 //         type: CREATE_SENSOR_SUCCESS,
-//         payload: newPost
+//         payload: newSensor
 //     };
 // }
 //

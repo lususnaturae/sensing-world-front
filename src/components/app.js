@@ -3,13 +3,18 @@
  */
 import React, { Component } from 'react';
 
-import SensorList from '../components/sensors_list';
+import SensorList from './sensor_list';
+
 
 export default class App extends Component {
     render() {
         return (
             <div>
+                <div>
                 <SensorList />
+                    
+                </div>
+
             </div>
         );
     }

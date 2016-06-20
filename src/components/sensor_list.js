@@ -1,9 +1,11 @@
 /**
  * Created by marco on 17.6.2016.
  */
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import * as actions from '../actions';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
+
+import GoogleMap from './google_map';
 
 class SensorsList extends Component {
     componentWillMount() {
@@ -14,13 +16,12 @@ class SensorsList extends Component {
         console.log("SensorsIndex - renderList()");
         console.log(sensor);
 
-            return (
-                <tr key={sensor.id}
-                >
-                    <td>{sensor.name}</td>
-                    <td>{sensor.usage_token}</td>
-                </tr>
-            );
+        return (
+            <tr key={sensor.id} >
+                <td>{sensor.name}</td>
+                <td>{sensor.usage_token}</td>
+            </tr>
+        );
 
     }
 
@@ -29,19 +30,25 @@ class SensorsList extends Component {
         console.log(this.props.sensors);
 
         return (
-            <table className="table table-hover">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Purpose</th>
 
+            <div className="col-sm-6 col-md-6 col-lg-6">
+                <table className="table table-hover">
+                    <thead>
+                     <tr>
+                        <th>Name</th>
+                        <th>Purpose</th>
                 </tr>
-                </thead>
-                <tbody>
-                {this.props.sensors.map(this.renderSensor)}
+                    
+                    </thead>
+                    <tbody>
+                    {this.props.sensors.map(this.renderSensor)}
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+                <GoogleMap ss={this.props.sensors}  />
+            </div>
+
+
         );
     }
 }
@@ -60,7 +67,6 @@ function mapStateToProps(state) {
 //     return {
 //             sensorsList: bindActionCreators({ fetchSensors } , dispatch)}
 // }
-
 
 
 export default connect(mapStateToProps, actions)(SensorsList)

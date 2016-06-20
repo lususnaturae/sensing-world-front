@@ -4,6 +4,7 @@
 import React, {Component} from 'react';
 import * as actions from '../actions';
 import {connect} from 'react-redux';
+import { Link } from 'react-router';
 
 import GoogleMap from './google_map';
 
@@ -17,10 +18,14 @@ class SensorsList extends Component {
         console.log(sensor);
 
         return (
+
             <tr key={sensor.id} >
+                <Link to={"sensors/" + sensor.id} >
                 <td>{sensor.name}</td>
                 <td>{sensor.usage_token}</td>
+                </Link>
             </tr>
+
         );
 
     }

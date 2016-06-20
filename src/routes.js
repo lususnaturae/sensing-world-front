@@ -6,11 +6,11 @@ import { Route, IndexRoute } from 'react-router';
 
 import App from './components/app';
 import SensorList from './components/sensor_list';
-
+import SensorShow from './components/sensor_show';
 
 export default (
     <Route path="/" component={App}>
         <IndexRoute component={SensorList} />
-        
+        <Route path="posts/:id" component={SensorShow} />
     </Route>
 );

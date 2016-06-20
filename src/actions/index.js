@@ -53,8 +53,29 @@ export function fetchSensors() {
 
              ]
     };
-    
 
+
+}
+
+export function fetchSensor(id) {
+    const request = axios.get(`${ROOT_URL}/sensors/${id}`);
+
+    return {
+        type: FETCH_SENSOR,
+        payload: request
+    };
+}
+
+export function deleteSensor(id, tokenFromStorage) {
+    const request = axios({
+        method: 'delete',
+        url: `${ROOT_URL}/sensors/${id}`,
+        headers: {'Authorization': `Bearer ${tokenFromStorage}`}
+    });
+    return {
+        type: DELETE_SENSOR,
+        payload: request
+    };
 }
 
 //
@@ -144,15 +165,6 @@ export function fetchSensors() {
 //     }
 // };
 //
-// export function fetchSensor(id) {
-//     const request = axios.get(`${ROOT_URL}/sensors/${id}`);
-//
-//     return {
-//         type: FETCH_SENSOR,
-//         payload: request
-//     };
-// }
-//
 //
 // export function fetchSensorSuccess(activeSensor) {
 //     return {
@@ -174,18 +186,7 @@ export function fetchSensors() {
 //     }
 // };
 //
-// export function deleteSensor(id, tokenFromStorage) {
-//     const request = axios({
-//         method: 'delete',
-//         url: `${ROOT_URL}/sensors/${id}`,
-//         headers: {'Authorization': `Bearer ${tokenFromStorage}`}
-//     });
-//     return {
-//         type: DELETE_SENSOR,
-//         payload: request
-//     };
-// }
-//
+
 // export function deleteSensorSuccess(deletedSensor) {
 //     return {
 //         type: DELETE_SENSOR_SUCCESS,

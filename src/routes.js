@@ -11,5 +11,6 @@ import SensorList from './components/sensor_list';
 export default (
     <Route path="/" component={App}>
         <IndexRoute component={SensorList} />
+        
     </Route>
 );

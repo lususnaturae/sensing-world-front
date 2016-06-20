@@ -11,11 +11,11 @@ export default (props) => {
             <div>Not data for map!!</div>
         )
     }
-    debugger;
+
     return (
         <GoogleMapLoader
-            containerElement={ <div style={{height: '100px'}} /> }
-            googleMapElement={ <GoogleMap defaultZoom={12} defaultCenter={{lat: 61  , lng: 24}} /> }
+            containerElement={ <div style={{ height: '400px' }} /> }
+            googleMapElement={ <GoogleMap defaultZoom={12} defaultCenter={{lat: 61.466473  , lng: 24.050716}} /> }
         />
 
     );

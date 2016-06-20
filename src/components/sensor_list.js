@@ -30,24 +30,28 @@ class SensorsList extends Component {
         console.log(this.props.sensors);
 
         return (
-
-            <div className="col-sm-6 col-md-6 col-lg-6">
+            <div className="row">
+            <div className="col-sm-12 col-md-6 col-lg-6">
                 <table className="table table-hover">
                     <thead>
                      <tr>
                         <th>Name</th>
                         <th>Purpose</th>
                 </tr>
-                    
+
                     </thead>
                     <tbody>
                     {this.props.sensors.map(this.renderSensor)}
 
                     </tbody>
                 </table>
-                <GoogleMap ss={this.props.sensors}  />
             </div>
+                <div className="col-sm-12 col-md-6 col-lg-6">
+                <GoogleMap ss={this.props.sensors}  />
+                    </div>
 
+
+</div>
 
         );
     }

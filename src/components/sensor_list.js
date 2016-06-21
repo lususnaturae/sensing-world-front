@@ -11,6 +11,7 @@ import GoogleMap from './google_map';
 class SensorsList extends Component {
     componentWillMount() {
         this.props.fetchSensors();
+        this.props.generateMarkers(this.props.sensors);
     }
 
     renderSensor(sensor) {
@@ -20,11 +21,12 @@ class SensorsList extends Component {
         return (
 
             <tr key={sensor.id} >
-                <Link to={"sensors/" + sensor.id} >
-                <td>{sensor.name}</td>
+
+                <td><Link to={"sensors/" + sensor.id} >{sensor.name}</Link></td>
                 <td>{sensor.usage_token}</td>
-                </Link>
+                
             </tr>
+
 
         );
 
@@ -52,7 +54,7 @@ class SensorsList extends Component {
                 </table>
             </div>
                 <div className="col-sm-12 col-md-6 col-lg-6">
-                <GoogleMap ss={this.props.sensors}  />
+                <GoogleMap data={this.props}  />
                     </div>
 
 
@@ -63,7 +65,8 @@ class SensorsList extends Component {
 }
 function mapStateToProps(state) {
     return {
-        sensors: state.sensors
+        sensors: state.sensors,
+        sensorsMarkers: state.sensorMarkers
     };
 }
 

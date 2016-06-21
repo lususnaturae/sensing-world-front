@@ -5,10 +5,12 @@ import { combineReducers } from 'redux';
 
 //import ActiveSensorReducer from './reducer_active_sensor';
 import sensorsReducer from './reducer_sensors';
+import markersReducer from './reducer_markers';
 
 const rootReducer = combineReducers({
 //    activeSensor: ActiveSensorReducer,
-    sensors: sensorsReducer
+    sensors: sensorsReducer,
+    sensorMarkers: markersReducer
 });
 
 export default rootReducer;

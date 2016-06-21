@@ -34,6 +34,9 @@ export const DELETE_SENSOR_SUCCESS = 'DELETE_SENSOR_SUCCESS';
 export const DELETE_SENSOR_FAILURE = 'DELETE_SENSOR_FAILURE';
 export const RESET_DELETED_SENSOR = 'RESET_DELETED_SENSOR';
 
+//Markers
+export const GENERATE_MARKERS = 'GENERATE_MARKERS';
+
 
 const ROOT_URL = location.href.indexOf('localhost') > 0 ? 'http://localhost:3000/api' : '/api';
 export function fetchSensors() {
@@ -55,6 +58,27 @@ export function fetchSensors() {
     };
 
 
+}
+
+export function generateMarkers() {
+    return {
+        type: GENERATE_MARKERS,
+        payload: [{
+            position: {
+                lat: 61.466473,
+                lng: 24.050716
+            },
+            key: 'Outside temperature',
+            defaultAnimation: 2
+        },{
+            position: {
+                lat: 61.466306,
+                lng: 24.050828
+            },
+            key: 'Kitchen temperature',
+            defaultAnimation: 2
+        }]
+    }
 }
 
 export function fetchSensor(id) {

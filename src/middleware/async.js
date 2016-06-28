@@ -5,6 +5,7 @@
 export default function({ dispatch }) {
     return next => action => {
         // check if no payload or not promise then property does not exist
+        //debugger;
         if(!action.payload || !action.payload.then) {
             return next(action);
         }

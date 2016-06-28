@@ -3,8 +3,8 @@
  */
 import React, { Component, PropTypes  } from 'react';
 import { connect } from 'react-redux';
-import { fetchSensor, deleteSensor} from '../actions/index';
 import { Link } from 'react-router';
+import * as actions from '../actions';
 
 class SensorShow extends Component {
     // this just gives access Router property
@@ -13,7 +13,12 @@ class SensorShow extends Component {
     };
 
     componentWillMount() {
-        this.props.fetchSensor(this.props.params.id);
+
+        debugger;
+        this.props.fetchSensors();
+        this.props.generateMarkers(this.props.sensors);
+        this.props.fetchSensor(this.props.params.id, this.props.sensors);
+        debugger;
     }
 
     onDeleteClick() {
@@ -27,8 +32,9 @@ class SensorShow extends Component {
     }
 
     render() {
-        const { sensor } = this.props;
-        if (!sensor) {
+        debugger;
+        const { activeSensor } = this.props;
+        if (!activeSensor) {
             return <div>Loading...</div>
         }
         return (
@@ -37,16 +43,18 @@ class SensorShow extends Component {
                 <button
                     className="btn btn-danger pull-xs-right"
                     onClick={this.onDeleteClick.bind(this)}>Delete Sensor</button>
-                <h3>{sensor.name}</h3>
-                <h6>Categories: {sensor.categories}</h6>
-                <p>{sensor.content}</p>
+                <h3>{activeSensor.name}</h3>
+                <h6>Categories: {activeSensor.categories}</h6>
+                <p>{activeSensor.content}</p>
             </div>
         );
     }
 }
 
 function mapStateToProps(state) {
-    return { sensor: state.sensors.sensor };
+    return { sensors: state.sensors,
+        sensorsMarkers: state.sensorMarkers,
+        activeSensor: state.activeSensor };
 }
 
-export default connect(mapStateToProps, { fetchSensor, deleteSensor })(SensorShow);
+export default connect(mapStateToProps, actions)(SensorShow);

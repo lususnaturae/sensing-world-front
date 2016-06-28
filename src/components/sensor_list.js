@@ -12,12 +12,13 @@ class SensorsList extends Component {
     componentWillMount() {
         this.props.fetchSensors();
         this.props.generateMarkers(this.props.sensors);
+        debugger;
     }
 
     renderSensor(sensor) {
         console.log("SensorsIndex - renderList()");
         console.log(sensor);
-
+        //debugger;
         return (
 
             <tr key={sensor.id} >
@@ -33,9 +34,11 @@ class SensorsList extends Component {
     }
 
     render() {
-        console.log("SensorsIndex - render()");
-        console.log(this.props.sensors);
 
+        console.log("SensorsIndex - render()");
+        console.log(this.props.sensorsList);
+        const {sensors, error, loading } = this.props.sensorsList;
+        debugger;
         return (
             <div className="row">
             <div className="col-sm-12 col-md-6 col-lg-6">
@@ -48,13 +51,13 @@ class SensorsList extends Component {
 
                     </thead>
                     <tbody>
-                    {this.props.sensors.map(this.renderSensor)}
+                    {this.props.sensorsList.sensors.map(this.renderSensor)}
 
                     </tbody>
                 </table>
             </div>
                 <div className="col-sm-12 col-md-6 col-lg-6">
-                <GoogleMap data={this.props}  />
+
                     </div>
 
 
@@ -63,10 +66,14 @@ class SensorsList extends Component {
         );
     }
 }
+//<GoogleMap data={this.props}  />
+
 function mapStateToProps(state) {
+    debugger;
     return {
-        sensors: state.sensors,
-        sensorsMarkers: state.sensorMarkers
+        sensorsList: state.sensors.sensorsList,
+        sensorsMarkers: state.sensors.sensorsMarkers,
+        activeSensor: state.activeSensor
     };
 }
 

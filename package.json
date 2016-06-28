@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Sensing World UI APP",
   "main": "index.js",
-  "repository": "git@github.com:lususnaturae/sensing-world-ui.git",
+  "repository": "git@github.com:lususnaturae/sensing-world-front.git",
   "scripts": {
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --port 8383",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
@@ -35,6 +35,8 @@
     "react-redux": "^4.0.0",
     "react-router": "^2.0.1",
     "react-sparklines": "^1.5.2",
-    "redux": "^3.0.4"
+    "redux": "^3.0.4",
+    "redux-form": "^5.2.5",
+    "redux-thunk": "^2.1.0"
   }
 }

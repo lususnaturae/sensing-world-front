@@ -2,43 +2,72 @@
  * Created by marco on 17.6.2016.
  */
 //import axios from 'axios';
+import {
+    AUTH_USER,
+    UNAUTH_USER,
+    AUTH_ERROR,
+    FETCH_SENSORS,
+    FETCH_SENSOR,
+    DELETE_SENSOR,
+    GENERATE_MARKERS
+} from './types';
 
-// Sensor list
-export const FETCH_SENSORS = 'FETCH_SENSORS';
-export const FETCH_SENSORS_SUCCESS = 'FETCH_SENSORS_SUCCESS';
-export const FETCH_SENSORS_FAILURE = 'FETCH_SENSORS_FAILURE';
-export const RESET_SENSORS = 'RESET_SENSORS';
-
-// Create new sensor
-export const CREATE_SENSOR = 'CREATE_SENSOR';
-export const CREATE_SENSOR_SUCCESS = 'CREATE_SENSORS_SUCCESS';
-export const CREATE_SENSOR_FAILURE = 'CREATE_SENSORS_FAILURE';
-export const RESET_NEW_SENSOR = 'RESET_NEW_SENSOR';
-
-// Validate sensor fields like Name, UsageToken
-export const VALIDATE_SENSOR_FIELDS = 'VALIDATE_SENSOR_FIELDS';
-export const VALIDATE_SENSOR_FIELDS_SUCCESS = 'VALIDATE_SENSOR_FIELDS_SUCCESS';
-export const VALIDATE_SENSOR_FIELDS_FAILURE = 'VALIDATE_SENSOR_FIELDS_FAILURE';
-export const RESET_SENSOR_FIELDS = 'RESET_SENSOR_FIELDS';
+const ROOT_URL = location.href.indexOf('localhost') > 0 ? 'http://sensingworld.dev' : '/';
+const AUTH_URL = location.href.indexOf('localhost') > 0 ? 'http://auth.sensingworld.dev/api' : '/api';
+const SENSOR_URL = location.href.indexOf('localhost') > 0 ? 'http://sensors.sensingworld.dev/api' : '/api';
+const SENSORLOG_URL = location.href.indexOf('localhost') > 0 ? 'http://sensorlog.sensingworld.dev/api' : '/api';
+const ANALYTICS_URL = location.href.indexOf('localhost') > 0 ? 'http://analytics.sensingworld.dev/api' : '/api';
 
 
-// Fetch sensor
-export const FETCH_SENSOR = 'FETCH_SENSOR';
-export const FETCH_SENSOR_SUCCESS = 'FETCH_SENSOR_SUCCESS';
-export const FETCH_SENSOR_FAILURE = 'FETCH_SENSOR_FAILURE';
-export const RESET_ACTIVE_SENSOR = 'RESET_ACTIVE_SENSOR';
 
-//Delete post
-export const DELETE_SENSOR = 'DELETE_SENSOR';
-export const DELETE_SENSOR_SUCCESS = 'DELETE_SENSOR_SUCCESS';
-export const DELETE_SENSOR_FAILURE = 'DELETE_SENSOR_FAILURE';
-export const RESET_DELETED_SENSOR = 'RESET_DELETED_SENSOR';
+export function signinUser({ email, password }) {
+    return function(dispatch) {
+        // Submit email/password to the server
+        axios.post(`${AUTH_URL}/signin`, { email, password })
+            .then(response => {
+                // If request is good...
+                // - Update state to indicate user is authenticated
+                dispatch({ type: AUTH_USER });
+                // - Save the JWT token
+                localStorage.setItem('token', response.data.token);
+                // - redirect to the route '/feature'
+                browserHistory.push('/feature');
+            })
+            .catch(() => {
+                // If request is bad...
+                // - Show an error to the user
+                dispatch(authError('Bad Login Info'));
+            });
+    }
+}
 
-//Markers
-export const GENERATE_MARKERS = 'GENERATE_MARKERS';
+export function signupUser({ email, password }) {
+    return function(dispatch) {
+        axios.post(`${AUTH_URL}/signup`, { email, password })
+            .then(response => {
+                dispatch({ type: AUTH_USER });
+                localStorage.setItem('token', response.data.token);
+                browserHistory.push('/feature');
+            })
+            .catch(response => dispatch(authError(response.data.error)));
+    }
+}
+
+export function authError(error) {
+    return {
+        type: AUTH_ERROR,
+        payload: error
+    };
+}
+
+export function signoutUser() {
+    localStorage.removeItem('token');
+
+    return { type: UNAUTH_USER };
+}
 
 
-const ROOT_URL = location.href.indexOf('localhost') > 0 ? 'http://localhost:3000/api' : '/api';
+
 export function fetchSensors() {
     return {
              type: FETCH_SENSORS,
@@ -81,12 +110,16 @@ export function generateMarkers() {
     }
 }
 
-export function fetchSensor(id) {
-    const request = axios.get(`${ROOT_URL}/sensors/${id}`);
+export function fetchSensor(id, sensors) {
+    //const request = axios.get(`${ROOT_URL}/sensors/${id}`);
 
     return {
         type: FETCH_SENSOR,
-        payload: request
+        payload: { id: 2,
+            name: 'Kitchen temperature',
+            usage_token: 'Temperature',
+            lat: 61.466306,
+            lon: 24.050828}
     };
 }
 

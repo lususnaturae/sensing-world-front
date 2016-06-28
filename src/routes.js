@@ -5,12 +5,21 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
 import App from './components/app';
-import SensorList from './components/sensor_list';
+import SensorsList from './components/sensor_list';
 import SensorShow from './components/sensor_show';
+import Signin from './components/auth/signin';
+import Signout from './components/auth/signout';
+import Signup from './components/auth/signup';
+import RequireAuth from './components/auth/require_auth';
 
 export default (
     <Route path="/" component={App}>
-        <IndexRoute component={SensorList} />
-        <Route path="posts/:id" component={SensorShow} />
+        <IndexRoute component={Signin} />
+        <Route path="sensors/list" component={SensorsList} />
+        <Route path="sensors/:id" component={RequireAuth(SensorShow)} />
+        <Route path="signin" component={Signin} />
+        <Route path="signout" component={Signout} />
+        <Route path="signup" component={Signup} />
+
     </Route>
 );

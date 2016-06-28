@@ -4,6 +4,7 @@
 import React from 'react';
 import {GoogleMapLoader, GoogleMap, Marker} from 'react-google-maps';
 
+
 export default (props) => {
                                              
     if (!props || !props.data || (props.data.sensors.length === 0)) {
@@ -23,7 +24,7 @@ export default (props) => {
     return (
         <GoogleMapLoader
             containerElement={ <div style={{ height: '400px' }} /> }
-            googleMapElement={ <GoogleMap defaultZoom={19} defaultCenter={{lat: 61.466473  , lng: 24.050716}} >
+            googleMapElement={ <GoogleMap  defaultZoom={19} defaultCenter={{lat: 61.466473  , lng: 24.050716}} >
             {props.data.sensorsMarkers.map((marker, index) => {
               return (
                 <Marker

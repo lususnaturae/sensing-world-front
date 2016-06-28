@@ -13,12 +13,7 @@ class SensorShow extends Component {
     };
 
     componentWillMount() {
-
-        debugger;
-        this.props.fetchSensors();
-        this.props.generateMarkers(this.props.sensors);
-        this.props.fetchSensor(this.props.params.id, this.props.sensors);
-        debugger;
+        this.props.fetchSensor(this.props.params.id);
     }
 
     onDeleteClick() {
@@ -34,7 +29,7 @@ class SensorShow extends Component {
     render() {
         debugger;
         const { sensor } = this.props.activeSensor;
-        if (!activeSensor) {
+        if (!sensor) {
             return <div>Loading...</div>
         }
         return (
@@ -44,8 +39,8 @@ class SensorShow extends Component {
                     className="btn btn-danger pull-xs-right"
                     onClick={this.onDeleteClick.bind(this)}>Delete Sensor</button>
                 <h3>{sensor.name}</h3>
-                <h6>Categories: {sensor.categories}</h6>
-                <p>{sensor.content}</p>
+                <h6>USage: {sensor.usage_token}</h6>
+                <p>{sensor.lat}, {sensor.lon}</p>
             </div>
         );
     }
@@ -55,7 +50,7 @@ function mapStateToProps(state) {
     return {
         sensorsList: state.sensors.sensorsList,
         sensorsMarkers: state.sensors.sensorsMarkers,
-        activeSensor: state.activeSensor
+        activeSensor: state.sensors.activeSensor
     };
 }
 

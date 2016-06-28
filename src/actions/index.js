@@ -12,60 +12,73 @@ import {
     GENERATE_MARKERS
 } from './types';
 
-const ROOT_URL = location.href.indexOf('localhost') > 0 ? 'http://sensingworld.dev' : '/';
-const AUTH_URL = location.href.indexOf('localhost') > 0 ? 'http://auth.sensingworld.dev/api' : '/api';
-const SENSOR_URL = location.href.indexOf('localhost') > 0 ? 'http://sensors.sensingworld.dev/api' : '/api';
-const SENSORLOG_URL = location.href.indexOf('localhost') > 0 ? 'http://sensorlog.sensingworld.dev/api' : '/api';
-const ANALYTICS_URL = location.href.indexOf('localhost') > 0 ? 'http://analytics.sensingworld.dev/api' : '/api';
+// const ROOT_URL = location.href.indexOf('localhost') > 0 ? 'http://sensingworld.dev' : '/';
+// const AUTH_URL = location.href.indexOf('localhost') > 0 ? 'http://auth.sensingworld.dev/api' : '/api';
+// const SENSOR_URL = location.href.indexOf('localhost') > 0 ? 'http://sensors.sensingworld.dev/api' : '/api';
+// const SENSORLOG_URL = location.href.indexOf('localhost') > 0 ? 'http://sensorlog.sensingworld.dev/api' : '/api';
+// const ANALYTICS_URL = location.href.indexOf('localhost') > 0 ? 'http://analytics.sensingworld.dev/api' : '/api';
+//
+//
+//
+// export function signinUser({ email, password }) {
+//     return function(dispatch) {
+//         // Submit email/password to the server
+//         axios.post(`${AUTH_URL}/signin`, { email, password })
+//             .then(response => {
+//                 // If request is good...
+//                 // - Update state to indicate user is authenticated
+//                 dispatch({ type: AUTH_USER });
+//                 // - Save the JWT token
+//                 localStorage.setItem('token', response.data.token);
+//                 // - redirect to the route '/feature'
+//                 browserHistory.push('/feature');
+//             })
+//             .catch(() => {
+//                 // If request is bad...
+//                 // - Show an error to the user
+//                 dispatch(authError('Bad Login Info'));
+//             });
+//     }
+// }
+//
+// export function signupUser({ email, password }) {
+//     return function(dispatch) {
+//         axios.post(`${AUTH_URL}/signup`, { email, password })
+//             .then(response => {
+//                 dispatch({ type: AUTH_USER });
+//                 localStorage.setItem('token', response.data.token);
+//                 browserHistory.push('/feature');
+//             })
+//             .catch(response => dispatch(authError(response.data.error)));
+//     }
+// }
+//
+// export function authError(error) {
+//     return {
+//         type: AUTH_ERROR,
+//         payload: error
+//     };
+// }
+//
+// export function signoutUser() {
+//     localStorage.removeItem('token');
+//
+//     return { type: UNAUTH_USER };
+// }
 
 
+export function fetchSensor(id) {
+    //const request = axios.get(`${ROOT_URL}/sensors/${id}`);
 
-export function signinUser({ email, password }) {
-    return function(dispatch) {
-        // Submit email/password to the server
-        axios.post(`${AUTH_URL}/signin`, { email, password })
-            .then(response => {
-                // If request is good...
-                // - Update state to indicate user is authenticated
-                dispatch({ type: AUTH_USER });
-                // - Save the JWT token
-                localStorage.setItem('token', response.data.token);
-                // - redirect to the route '/feature'
-                browserHistory.push('/feature');
-            })
-            .catch(() => {
-                // If request is bad...
-                // - Show an error to the user
-                dispatch(authError('Bad Login Info'));
-            });
-    }
-}
-
-export function signupUser({ email, password }) {
-    return function(dispatch) {
-        axios.post(`${AUTH_URL}/signup`, { email, password })
-            .then(response => {
-                dispatch({ type: AUTH_USER });
-                localStorage.setItem('token', response.data.token);
-                browserHistory.push('/feature');
-            })
-            .catch(response => dispatch(authError(response.data.error)));
-    }
-}
-
-export function authError(error) {
     return {
-        type: AUTH_ERROR,
-        payload: error
+        type: FETCH_SENSOR,
+        payload: { id: 2,
+            name: 'Kitchen temperature',
+            usage_token: 'Temperature',
+            lat: 61.466306,
+            lon: 24.050828}
     };
 }
-
-export function signoutUser() {
-    localStorage.removeItem('token');
-
-    return { type: UNAUTH_USER };
-}
-
 
 
 export function fetchSensors() {
@@ -108,19 +121,6 @@ export function generateMarkers() {
             defaultAnimation: 2
         }]
     }
-}
-
-export function fetchSensor(id, sensors) {
-    //const request = axios.get(`${ROOT_URL}/sensors/${id}`);
-
-    return {
-        type: FETCH_SENSOR,
-        payload: { id: 2,
-            name: 'Kitchen temperature',
-            usage_token: 'Temperature',
-            lat: 61.466306,
-            lon: 24.050828}
-    };
 }
 
 export function deleteSensor(id, tokenFromStorage) {

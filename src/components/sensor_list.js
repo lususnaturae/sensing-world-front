@@ -12,6 +12,7 @@ class SensorsList extends Component {
     componentWillMount() {
         this.props.fetchSensors();
         this.props.generateMarkers(this.props.sensors);
+        this.props.fetchSensor("1");
         //debugger;
     }
 
@@ -74,7 +75,7 @@ function mapStateToProps(state) {
     return {
         sensorsList: state.sensors.sensorsList,
         sensorsMarkers: state.sensors.sensorsMarkers,
-        activeSensor: state.activeSensor
+        activeSensor: state.sensors.activeSensor
     };
 }
 

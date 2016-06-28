@@ -29,7 +29,7 @@ ReactDOM.render(
             <Route path="/" component={App}>
                 <IndexRoute component={Signin} />
                 <Route path="sensors/list" component={SensorsList} />
-                <Route path="sensors/:id" component={SensorShow} />
+                <Route path="sensor/:id" component={SensorShow} />
 
                 <Route path="signin" component={Signin} />
                 <Route path="signout" component={Signout} />

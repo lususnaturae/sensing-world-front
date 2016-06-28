@@ -7,23 +7,12 @@ import {GoogleMapLoader, GoogleMap, Marker} from 'react-google-maps';
 const GOOGLEMAP_API_KEY='AIzaSyAZdsHsrsfz7zzeupWdbcjjhhhtMMwpzsU';
 
 export default (props) => {
-    console.log("google map");
-    console.log(props);
+
     if (!props || !props.data.markers || (props.data.markers.length === 0)) {
-        debugger;
         return (
             <div>Not data for map!!</div>
         )
     }
-
-    console.log(props.data.markers.map((marker, index) => {
-        return (
-            <Marker
-                {...marker}
-
-            />
-        );
-    }));
 
     return (
         <GoogleMapLoader
@@ -39,8 +28,6 @@ export default (props) => {
             })}
                    </GoogleMap>
                   }
-
         />
-
     );
 }

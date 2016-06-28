@@ -33,7 +33,7 @@ class SensorShow extends Component {
 
     render() {
         debugger;
-        const { activeSensor } = this.props;
+        const { sensor } = this.props.activeSensor;
         if (!activeSensor) {
             return <div>Loading...</div>
         }
@@ -43,18 +43,20 @@ class SensorShow extends Component {
                 <button
                     className="btn btn-danger pull-xs-right"
                     onClick={this.onDeleteClick.bind(this)}>Delete Sensor</button>
-                <h3>{activeSensor.name}</h3>
-                <h6>Categories: {activeSensor.categories}</h6>
-                <p>{activeSensor.content}</p>
+                <h3>{sensor.name}</h3>
+                <h6>Categories: {sensor.categories}</h6>
+                <p>{sensor.content}</p>
             </div>
         );
     }
 }
 
 function mapStateToProps(state) {
-    return { sensors: state.sensors,
-        sensorsMarkers: state.sensorMarkers,
-        activeSensor: state.activeSensor };
+    return {
+        sensorsList: state.sensors.sensorsList,
+        sensorsMarkers: state.sensors.sensorsMarkers,
+        activeSensor: state.activeSensor
+    };
 }
 
 export default connect(mapStateToProps, actions)(SensorShow);

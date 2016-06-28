@@ -23,7 +23,7 @@ class SensorsList extends Component {
 
             <tr key={sensor.id} >
 
-                <td><Link to={"sensors/" + sensor.id} >{sensor.name}</Link></td>
+                <td><Link to={"sensor/" + sensor.id} >{sensor.name}</Link></td>
                 <td>{sensor.usage_token}</td>
                 
             </tr>

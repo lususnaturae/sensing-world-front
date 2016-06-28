@@ -3,11 +3,10 @@
  */
 import { combineReducers } from 'redux';
 import { reducer as form } from 'redux-form';
-import authReducer from './auth_reducer';
 
-import ActiveSensorReducer from './reducer_active_sensor';
+import authReducer from './auth_reducer';
 import sensorsReducer from './reducer_sensors';
-import markersReducer from './reducer_markers';
+
 
 const rootReducer = combineReducers({
     form,

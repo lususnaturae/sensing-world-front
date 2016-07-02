@@ -2,11 +2,11 @@
  * Created by marco on 17.6.2016.
  */
 import React, {Component} from 'react';
-import * as actions from '../actions';
+import * as actions from '../../actions';
 import {connect} from 'react-redux';
 import { Link } from 'react-router';
 
-import GoogleMap from './google_map';
+import GoogleMap from '../google_map';
 
 class SensorsList extends Component {
     componentWillMount() {

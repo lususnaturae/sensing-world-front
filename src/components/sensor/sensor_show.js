@@ -4,7 +4,7 @@
 import React, { Component, PropTypes  } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import * as actions from '../actions';
+import * as actions from '../../actions';
 
 class SensorShow extends Component {
     // this just gives access Router property
@@ -34,7 +34,7 @@ class SensorShow extends Component {
         }
         return (
             <div>
-                <Link to="/">Back</Link>
+                <Link to="/sensors/list">Back</Link>
                 <button
                     className="btn btn-danger pull-xs-right"
                     onClick={this.onDeleteClick.bind(this)}>Delete Sensor</button>

@@ -22,10 +22,8 @@ export default function (state = INITIAL_STATE, action) {
             return {...state, activeSensor: {sensor: action.payload, error: null, loading: false}};
         case FETCH_SENSORS:
             return {...state, sensorsList: {sensors: action.payload, error: null, loading: false}};
-
         case GENERATE_MARKERS:
             return {...state, sensorsMarkers: {markers: action.payload, error: null, loading: false}};
-
         default:
             return state;
     }

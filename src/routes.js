@@ -5,8 +5,8 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
 import App from './components/app';
-import SensorsList from './components/sensor_list';
-import SensorShow from './components/sensor_show';
+import SensorsList from './components/sensor/sensor_list';
+import SensorShow from './components/sensor/sensor_show';
 import Signin from './components/auth/signin';
 import Signout from './components/auth/signout';
 import Signup from './components/auth/signup';

@@ -14,9 +14,9 @@ const INITIAL_STATE = {
 
 
 export default function (state = INITIAL_STATE, action) {
-    console.log("reducer_sensors");
-    console.log(state);
-    console.log(action);
+    //console.log("reducer_sensors");
+    //console.log(state);
+    //console.log(action);
     switch (action.type) {
         case FETCH_SENSOR:
             return {...state, activeSensor: {sensor: action.payload, error: null, loading: false}};

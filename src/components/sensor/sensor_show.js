@@ -6,14 +6,17 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import * as actions from '../../actions';
 
-class SensorShow extends Component {
+export class SensorShow extends Component {
     // this just gives access Router property
     static contextTypes = {
         router: PropTypes.object
     };
 
     componentWillMount() {
-        this.props.fetchSensor(this.props.params.id);
+
+        if (this.props.params) {
+            this.props.fetchSensor(this.props.params.id);
+        }
     }
 
     onDeleteClick() {

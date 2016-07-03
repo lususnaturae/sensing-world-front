@@ -5,7 +5,7 @@ import { combineReducers } from 'redux';
 import { reducer as form } from 'redux-form';
 
 import authReducer from './auth_reducer';
-import sensorsReducer from './reducer_sensors';
+import sensorsReducer from './sensors_reducer';
 
 
 const rootReducer = combineReducers({

@@ -8,23 +8,24 @@ import { Link } from 'react-router';
 
 import GoogleMap from '../google_map';
 
-class SensorsList extends Component {
+// named export for unconnected component (for tests)
+export class SensorsList extends Component {
     componentWillMount() {
         this.props.fetchSensors();
         this.props.generateMarkers(this.props.sensors);
-        this.props.fetchSensor("1");
+        //this.props.fetchSensor("1");
         //debugger;
     }
 
     renderSensor(sensor) {
-        console.log("SensorsIndex - renderList()");
-        console.log(sensor);
+        //console.log("SensorsIndex - renderList()");
+        //console.log(sensor);
         //debugger;
         return (
 
             <tr key={sensor.id} >
 
-                <td><Link to={"sensor/" + sensor.id} >{sensor.name}</Link></td>
+                <td ><Link to={"sensor/" + sensor.id} >{sensor.name}</Link></td>
                 <td>{sensor.usage_token}</td>
                 
             </tr>
@@ -36,8 +37,8 @@ class SensorsList extends Component {
 
     render() {
 
-        console.log("SensorsIndex - render()");
-        console.log(this.props.sensorsList);
+        //console.log("SensorsIndex - render()");
+        //console.log(this.props.sensorsList);
         const {sensors, error, loading } = this.props.sensorsList;
         const  {markers } = this.props.sensorsMarkers;
         //debugger;
@@ -45,7 +46,7 @@ class SensorsList extends Component {
             <div className="row">
             <div className="col-sm-12 col-md-6 col-lg-6">
                 <table className="table table-hover">
-                    <thead>
+                    <thead className="sensor-list-table-head">
                      <tr>
                         <th>Name</th>
                         <th>Purpose</th>

@@ -5,6 +5,7 @@ import React, { Component, PropTypes  } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import * as actions from '../../actions';
+import Chart from '../chart';
 
 export class SensorShow extends Component {
     // this just gives access Router property
@@ -29,14 +30,30 @@ export class SensorShow extends Component {
             })
     }
 
+    renderTemperature() {
+
+        const temps = [10,11,12,13,15,20,22,24,22,18,15,14,10];
+
+        return (
+            <tr key={name}>
+
+                <td><Chart data={temps} color="orange" units="C" /></td>
+
+            </tr>
+        );
+    }
+
     render() {
         debugger;
         const { sensor } = this.props.activeSensor;
         if (!sensor) {
             return <div>Loading...</div>
         }
+        const temps = [10,11,12,13,15,20,22,24,22,18,15,14,10];
+
         return (
-            <div>
+            <div className="row">
+            <div className="col-sm-6">
                 <Link to="/sensors/list">Back</Link>
                 <button
                     className="btn btn-danger pull-xs-right"
@@ -45,6 +62,12 @@ export class SensorShow extends Component {
                 <h6>USage: {sensor.usage_token}</h6>
                 <p>{sensor.lat}, {sensor.lon}</p>
             </div>
+                <div>
+                    <Chart data={temps} color="orange" units="C" />
+
+                </div>
+                </div>
+
         );
     }
 }

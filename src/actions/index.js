@@ -1,7 +1,9 @@
 /**
  * Created by marco on 17.6.2016.
  */
-//import axios from 'axios';
+import axios from 'axios';
+import querystring from 'querystring';
+
 import {
     AUTH_USER,
     UNAUTH_USER,
@@ -13,33 +15,50 @@ import {
 } from './types';
 
 // const ROOT_URL = location.href.indexOf('localhost') > 0 ? 'http://sensingworld.dev' : '/';
-// const AUTH_URL = location.href.indexOf('localhost') > 0 ? 'http://auth.sensingworld.dev/api' : '/api';
+const AUTH_URL = location.href.indexOf('localhost') > 0 ? 'http://localhost:8080/oauth/token' : '/oauth/token';
 // const SENSOR_URL = location.href.indexOf('localhost') > 0 ? 'http://sensors.sensingworld.dev/api' : '/api';
 // const SENSORLOG_URL = location.href.indexOf('localhost') > 0 ? 'http://sensorlog.sensingworld.dev/api' : '/api';
 // const ANALYTICS_URL = location.href.indexOf('localhost') > 0 ? 'http://analytics.sensingworld.dev/api' : '/api';
 //
 //
 //
-// export function signinUser({ email, password }) {
-//     return function(dispatch) {
-//         // Submit email/password to the server
-//         axios.post(`${AUTH_URL}/signin`, { email, password })
-//             .then(response => {
-//                 // If request is good...
-//                 // - Update state to indicate user is authenticated
-//                 dispatch({ type: AUTH_USER });
-//                 // - Save the JWT token
-//                 localStorage.setItem('token', response.data.token);
-//                 // - redirect to the route '/feature'
-//                 browserHistory.push('/feature');
-//             })
-//             .catch(() => {
-//                 // If request is bad...
-//                 // - Show an error to the user
-//                 dispatch(authError('Bad Login Info'));
-//             });
-//     }
-// }
+export function signinUser({ username, password }) {
+    return function(dispatch) {
+        // Submit email/password to the server
+        const qq = querystring.stringify({ "username": username ,
+            password: password,
+            client_id: 'testi',
+            client_secret: 'testi',
+            grant_type: 'password'
+        });
+        console.log(qq);
+        axios.post(`${AUTH_URL}`,
+                qq,
+            { headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+
+
+            }}
+
+            )
+            .then(response => {
+                console.log("signin");
+                console.log(response);
+                // If request is good...
+                // - Update state to indicate user is authenticated
+                dispatch({ type: AUTH_USER });
+                // - Save the JWT token
+                localStorage.setItem('token', response.data.token);
+                // - redirect to the route '/feature'
+                browserHistory.push('/feature');
+            })
+            .catch(() => {
+                // If request is bad...
+                // - Show an error to the user
+                dispatch(authError('Bad Login Info'));
+            });
+    }
+}
 //
 // export function signupUser({ email, password }) {
 //     return function(dispatch) {

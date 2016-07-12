@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+//import { routerMiddleware, push } from 'react-router-redux'
 import Async from './middleware/async';
 import reduxThunk from 'redux-thunk';
 
@@ -19,8 +20,9 @@ import Signin from './components/auth/signin';
 import Signout from './components/auth/signout';
 import Signup from './components/auth/signup';
 import reducers from './reducers';
+//const middleware = routerMiddleware(browserHistory)
 
-const createStoreWithMiddleware = applyMiddleware(reduxThunk, Async  )(createStore);
+const createStoreWithMiddleware = applyMiddleware(reduxThunk, Async)(createStore);
 const store = createStoreWithMiddleware(reducers);
 
 ReactDOM.render(

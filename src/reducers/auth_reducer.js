@@ -4,17 +4,28 @@
 import {
     AUTH_USER,
     UNAUTH_USER,
-    AUTH_ERROR
+    AUTH_ERROR,
+    AUTH_SIGNUP_SUCCESS
 } from '../actions/types';
+
+const INITIAL_STATE = {
+    error: '',
+    message: '',
+    authenticated: false,
+    signup: false
+}
 
 export default function(state = {}, action) {
     switch(action.type) {
         case AUTH_USER:
-            return { ...state, error: '', authenticated: true};
+            return { ...state, error: '', message: '', authenticated: true, signup: false};
         case UNAUTH_USER:
-            return { ...state, error: '', authenticated: false};
+            return { ...state, error: '', authenticated: false, signup: false};
         case AUTH_ERROR:
-            return { ...state, error: action.payload};
+            return { ...state, error: action.payload, authenticated: false, signup: false};
+        case AUTH_SIGNUP_SUCCESS:
+            console.log("reducer AUTH_SIGNUP_SUCCESS");
+            return { ...state, message: 'auth.singup.success',  signup: true}
     }
     
     return state;

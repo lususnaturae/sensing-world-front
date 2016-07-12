@@ -2,7 +2,20 @@ import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import * as actions from '../../actions';
 
+
 class Signup extends Component {
+  static contextTypes = {
+    router: React.PropTypes.object
+  }
+
+  componentWillUpdate(nextProps) {
+    console.log(nextProps);
+    if (nextProps.signinsuccess) {
+      //debugger;
+      this.context.router.push('/sensor/list');
+    }
+  }
+  
   handleFormSubmit(formProps) {
     // Call action creator to sign up the user!
     this.props.signupUser(formProps);
@@ -77,7 +90,11 @@ function validate(formProps) {
 }
 
 function mapStateToProps(state) {
-  return { errorMessage: state.auth.error };
+  console.log(state);
+  return { 
+    errorMessage: state.auth.error,
+    signinsuccess: state.auth.signup
+  };
 }
 
 export default reduxForm({

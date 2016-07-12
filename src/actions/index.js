@@ -3,11 +3,13 @@
  */
 import axios from 'axios';
 import querystring from 'querystring';
+import { push } from 'react-router-redux';
 
 import {
     AUTH_USER,
     UNAUTH_USER,
     AUTH_ERROR,
+    AUTH_SIGNUP_SUCCESS,
     FETCH_SENSORS,
     FETCH_SENSOR,
     DELETE_SENSOR,
@@ -15,7 +17,7 @@ import {
 } from './types';
 
 // const ROOT_URL = location.href.indexOf('localhost') > 0 ? 'http://sensingworld.dev' : '/';
-const AUTH_URL = location.href.indexOf('localhost') > 0 ? 'http://localhost:8080/oauth/token' : '/oauth/token';
+const AUTH_URL = location.href.indexOf('localhost') > 0 ? 'http://localhost:8080' : '';
 // const SENSOR_URL = location.href.indexOf('localhost') > 0 ? 'http://sensors.sensingworld.dev/api' : '/api';
 // const SENSORLOG_URL = location.href.indexOf('localhost') > 0 ? 'http://sensorlog.sensingworld.dev/api' : '/api';
 // const ANALYTICS_URL = location.href.indexOf('localhost') > 0 ? 'http://analytics.sensingworld.dev/api' : '/api';
@@ -50,7 +52,7 @@ export function signinUser({ username, password }) {
                 // - Save the JWT token
                 localStorage.setItem('token', response.data.token);
                 // - redirect to the route '/feature'
-                browserHistory.push('/feature');
+                browserHistory.push('/signin');
             })
             .catch(() => {
                 // If request is bad...
@@ -59,26 +61,44 @@ export function signinUser({ username, password }) {
             });
     }
 }
-//
-// export function signupUser({ email, password }) {
-//     return function(dispatch) {
-//         axios.post(`${AUTH_URL}/signup`, { email, password })
-//             .then(response => {
-//                 dispatch({ type: AUTH_USER });
-//                 localStorage.setItem('token', response.data.token);
-//                 browserHistory.push('/feature');
-//             })
-//             .catch(response => dispatch(authError(response.data.error)));
-//     }
-// }
-//
-// export function authError(error) {
-//     return {
-//         type: AUTH_ERROR,
-//         payload: error
-//     };
-// }
-//
+
+export function signupUser({ username, email, password }) {
+    return function(dispatch) {
+        const qq = querystring.stringify({ "username": username , "email": email,
+            password: password,
+            client_id: 'testi',
+            client_secret: 'testi',
+            grant_type: 'password'
+        });
+        axios.post(`${AUTH_URL}/signup`, { username, email, password },{ headers: {
+                "Content-Type": "application/json"
+
+
+            }}
+        )
+            .then(response => {
+                console.log(response);
+                dispatch({ type: AUTH_SIGNUP_SUCCESS });
+                console.log("ennen history");
+                // browserHistory.push('http://localhost:3080/sensors/list');
+                //debugger;
+                //this.props.dispatch(push('/signin'));
+                console.log("jälkeen history");
+            })
+            .catch(response => {
+                console.log(response.data);
+                dispatch(authError(response.data.error))
+            });
+    }
+}
+
+export function authError(error) {
+    return {
+        type: AUTH_ERROR,
+        payload: error
+    };
+}
+
 // export function signoutUser() {
 //     localStorage.removeItem('token');
 //

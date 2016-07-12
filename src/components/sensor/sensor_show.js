@@ -44,7 +44,7 @@ export class SensorShow extends Component {
     }
 
     render() {
-        debugger;
+        //debugger;
         const { sensor } = this.props.activeSensor;
         if (!sensor) {
             return <div>Loading...</div>

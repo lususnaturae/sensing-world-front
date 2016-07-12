@@ -3,6 +3,7 @@
  */
 import { combineReducers } from 'redux';
 import { reducer as form } from 'redux-form';
+//import { routerReducer as routing } from 'react-router-redux';
 
 import authReducer from './auth_reducer';
 import sensorsReducer from './sensors_reducer';
@@ -10,6 +11,7 @@ import sensorsReducer from './sensors_reducer';
 
 const rootReducer = combineReducers({
     form,
+//    routing, 
     auth: authReducer,
     //activeSensor: ActiveSensorReducer,
     sensors: sensorsReducer,

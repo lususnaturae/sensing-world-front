@@ -173,14 +173,13 @@ export function fetchSensor(id) {
 
 
 export function fetchSensors() {
-    const request = axios.get({
-        data: props,
-        url: `${ROOT_URL}/sensors`,
-        headers: {'Authorization': `Bearer ${tokenFromStorage}`}
-    });
+    const tokenFromStorage = localStorage.getItem('sensing_world_access_token');
 
-    axios.get(`${AUTH_URL}/signup`, { username, email, password },{ headers: {
-            "Content-Type": "application/json"
+    axios.get(`${BASE_URL}/list`,
+        {  },
+        { headers: {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${tokenFromStorage}`
 
 
         }}

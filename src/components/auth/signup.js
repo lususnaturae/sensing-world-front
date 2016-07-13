@@ -12,8 +12,9 @@ class Signup extends Component {
     console.log(nextProps);
     if (nextProps.signinsuccess) {
       //debugger;
-      this.context.router.push('/sensor/list');
+      this.context.router.push('/signin');
     }
+    this.props.authSignupReset();
   }
   
   handleFormSubmit(formProps) {

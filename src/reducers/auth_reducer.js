@@ -5,7 +5,8 @@ import {
     AUTH_USER,
     UNAUTH_USER,
     AUTH_ERROR,
-    AUTH_SIGNUP_SUCCESS
+    AUTH_SIGNUP_SUCCESS,
+    AUTH_SIGNUP_SUCCESS_RESET
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -24,8 +25,9 @@ export default function(state = {}, action) {
         case AUTH_ERROR:
             return { ...state, error: action.payload, authenticated: false, signup: false};
         case AUTH_SIGNUP_SUCCESS:
-            console.log("reducer AUTH_SIGNUP_SUCCESS");
             return { ...state, message: 'auth.singup.success',  signup: true}
+        case AUTH_SIGNUP_SUCCESS_RESET:
+            return { ...state, signup: false}
     }
     
     return state;

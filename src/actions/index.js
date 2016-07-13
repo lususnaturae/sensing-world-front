@@ -10,6 +10,7 @@ import {
     UNAUTH_USER,
     AUTH_ERROR,
     AUTH_SIGNUP_SUCCESS,
+    AUTH_SIGNUP_SUCCESS_RESET,
     FETCH_SENSORS,
     FETCH_SENSOR,
     DELETE_SENSOR,
@@ -97,6 +98,12 @@ export function authError(error) {
         type: AUTH_ERROR,
         payload: error
     };
+}
+
+export function authSignupReset() {
+    return {
+        type: AUTH_SIGNUP_SUCCESS_RESET
+    }
 }
 
 // export function signoutUser() {

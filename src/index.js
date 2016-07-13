@@ -20,6 +20,8 @@ import Signin from './components/auth/signin';
 import Signout from './components/auth/signout';
 import Signup from './components/auth/signup';
 import reducers from './reducers';
+import routes from './routes';
+
 //const middleware = routerMiddleware(browserHistory)
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk, Async)(createStore);
@@ -27,17 +29,7 @@ const store = createStoreWithMiddleware(reducers);
 
 ReactDOM.render(
     <Provider store={store}>
-        <Router history={browserHistory}>
-            <Route path="/" component={App}>
-                <IndexRoute component={Signin} />
-                <Route path="sensors/list" component={SensorsList} />
-                <Route path="sensor/:id" component={SensorShow} />
+        <Router history={browserHistory} routes={routes} />
 
-                <Route path="signin" component={Signin} />
-                <Route path="signout" component={Signout} />
-                <Route path="signup" component={Signup} />
-
-            </Route>
-        </Router>
     </Provider>
     , document.querySelector('.container'));

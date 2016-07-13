@@ -15,10 +15,10 @@ import RequireAuth from './components/auth/require_auth';
 export default (
     <Route path="/" component={App}>
         <IndexRoute component={Signin} />
-        <Route path="sensors/list" component={SensorsList} />
-        <Route path="sensors/:id" component={RequireAuth(SensorShow)} />
+        <Route path="sensors/list" component={RequireAuth(SensorsList)} />
+        <Route path="sensor/:id" component={RequireAuth(SensorShow)} />
         <Route path="signin" component={Signin} />
-        <Route path="signout" component={Signout} />
+        <Route path="signout" component={RequireAuth(Signout)} />
         <Route path="signup" component={Signup} />
 
     </Route>

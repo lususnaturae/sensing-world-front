@@ -35,7 +35,7 @@ export function signinUser({ username, password }) {
             grant_type: 'password'
         });
         console.log(qq);
-        axios.post(`${AUTH_URL}`,
+        axios.post(`${AUTH_URL}/oauth/token`,
                 qq,
             { headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
@@ -45,15 +45,19 @@ export function signinUser({ username, password }) {
 
             )
             .then(response => {
+                // If request is good...
                 console.log("signin");
                 console.log(response);
-                // If request is good...
+
+                // - Save the JWT token
+                localStorage.setItem('sensing_world_access_token', response.data.access_token);
+                localStorage.setItem('sensing_world_token_type', response.data.token_type);
+                localStorage.setItem('sensing_world_token_expires_in', response.data.expires_in);
+
                 // - Update state to indicate user is authenticated
                 dispatch({ type: AUTH_USER });
-                // - Save the JWT token
-                localStorage.setItem('token', response.data.token);
                 // - redirect to the route '/feature'
-                browserHistory.push('/signin');
+
             })
             .catch(() => {
                 // If request is bad...
@@ -65,12 +69,12 @@ export function signinUser({ username, password }) {
 
 export function signupUser({ username, email, password }) {
     return function(dispatch) {
-        const qq = querystring.stringify({ "username": username , "email": email,
-            password: password,
-            client_id: 'testi',
-            client_secret: 'testi',
-            grant_type: 'password'
-        });
+        // const qq = querystring.stringify({ "username": username , "email": email,
+        //     password: password,
+        //     client_id: 'testi',
+        //     client_secret: 'testi',
+        //     grant_type: 'password'
+        // });
         axios.post(`${AUTH_URL}/signup`, { username, email, password },{ headers: {
                 "Content-Type": "application/json"
 
@@ -106,11 +110,12 @@ export function authSignupReset() {
     }
 }
 
-// export function signoutUser() {
-//     localStorage.removeItem('token');
-//
-//     return { type: UNAUTH_USER };
-// }
+export function signoutUser() {
+    localStorage.removeItem('sensing_world_access_token');
+    localStorage.removeItem('sensing_world_token_type');
+    localStorage.removeItem('sensing_world_token_expires_in');
+     return { type: UNAUTH_USER };
+ }
 
 
 export function fetchSensor(id) {

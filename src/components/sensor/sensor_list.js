@@ -10,6 +10,12 @@ import GoogleMap from '../google_map';
 
 // named export for unconnected component (for tests)
 export class SensorsList extends Component {
+    static contextTypes = {
+        router: React.PropTypes.object
+    }
+
+
+
     componentWillMount() {
         this.props.fetchSensors();
         this.props.generateMarkers(this.props.sensors);
@@ -17,13 +23,20 @@ export class SensorsList extends Component {
         //debugger;
     }
 
+    onCreateSensorClick() {
+        this.context.router.push('/sensor/create');
+    }
+
+
+
     renderSensor(sensor) {
         //console.log("SensorsIndex - renderList()");
         //console.log(sensor);
         //debugger;
+
         return (
 
-            <tr key={sensor.id} >
+            <tr key={sensor.id}  >
 
                 <td ><Link to={"sensor/" + sensor.id} >{sensor.name}</Link></td>
                 <td>{sensor.usage_token}</td>
@@ -43,7 +56,15 @@ export class SensorsList extends Component {
         const  {markers } = this.props.sensorsMarkers;
         //debugger;
         return (
+<div>
+    <div className="row">
+
+        <button
+            className="btn btn-primary pull-xs-left"
+            onClick={this.onCreateSensorClick.bind(this)}>Create New Sensor</button>
+    </div>
             <div className="row">
+
             <div className="col-sm-12 col-md-6 col-lg-6">
                 <table className="table table-hover">
                     <thead className="sensor-list-table-head">
@@ -54,7 +75,7 @@ export class SensorsList extends Component {
 
                     </thead>
                     <tbody>
-                    {this.props.sensorsList.sensors.map(this.renderSensor)}
+                    {this.props.sensorsList.sensors.map(this.renderSensor, this)}
 
                     </tbody>
                 </table>
@@ -66,7 +87,7 @@ export class SensorsList extends Component {
 
 
 </div>
-
+</div>
         );
     }
 }

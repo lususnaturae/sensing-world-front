@@ -7,6 +7,11 @@ export const AUTH_ERROR = 'auth_error';
 export const AUTH_SIGNUP_SUCCESS = 'auth_signup_success';
 export const AUTH_SIGNUP_SUCCESS_RESET =  'auth_signup_success_reset';
 
+// Create new sensor
+export const CREATE_SENSOR = 'create_sensor';
+export const CREATE_SENSOR_SUCCESS = 'create_sensors_success';
+export const CREATE_SENSOR_FAILURE = 'create_sensors_failure';
+export const CREATE_SENSOR_SUCCESS_RESET = 'create_sensors_success';
 
 
 // Sensor list
@@ -15,11 +20,6 @@ export const FETCH_SENSORS_SUCCESS = 'FETCH_SENSORS_SUCCESS';
 export const FETCH_SENSORS_FAILURE = 'FETCH_SENSORS_FAILURE';
 export const RESET_SENSORS = 'RESET_SENSORS';
 
-// Create new sensor
-export const CREATE_SENSOR = 'CREATE_SENSOR';
-export const CREATE_SENSOR_SUCCESS = 'CREATE_SENSORS_SUCCESS';
-export const CREATE_SENSOR_FAILURE = 'CREATE_SENSORS_FAILURE';
-export const RESET_NEW_SENSOR = 'RESET_NEW_SENSOR';
 
 // Validate sensor fields like Name, UsageToken
 export const VALIDATE_SENSOR_FIELDS = 'VALIDATE_SENSOR_FIELDS';

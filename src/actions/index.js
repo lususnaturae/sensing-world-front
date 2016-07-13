@@ -11,6 +11,10 @@ import {
     AUTH_ERROR,
     AUTH_SIGNUP_SUCCESS,
     AUTH_SIGNUP_SUCCESS_RESET,
+    CREATE_SENSOR,
+    CREATE_SENSOR_SUCCESS,
+    CREATE_SENSOR_FAILURE,
+    CREATE_SENSOR_SUCCESS_RESET,
     FETCH_SENSORS,
     FETCH_SENSOR,
     DELETE_SENSOR,
@@ -19,6 +23,8 @@ import {
 
 // const ROOT_URL = location.href.indexOf('localhost') > 0 ? 'http://sensingworld.dev' : '/';
 const AUTH_URL = location.href.indexOf('localhost') > 0 ? 'http://localhost:8080' : '';
+const BASE_URL = location.href.indexOf('localhost') > 0 ? 'http://localhost:8888' : '';
+
 // const SENSOR_URL = location.href.indexOf('localhost') > 0 ? 'http://sensors.sensingworld.dev/api' : '/api';
 // const SENSORLOG_URL = location.href.indexOf('localhost') > 0 ? 'http://sensorlog.sensingworld.dev/api' : '/api';
 // const ANALYTICS_URL = location.href.indexOf('localhost') > 0 ? 'http://analytics.sensingworld.dev/api' : '/api';
@@ -117,6 +123,40 @@ export function signoutUser() {
      return { type: UNAUTH_USER };
  }
 
+export function createSensor(props, tokenFromStorage) {
+    //const request = axios.post(`${ROOT_URL}/sensors`, props);
+    const request = axios({
+        method: 'post',
+        data: props,
+        url: `${ROOT_URL}/list`,
+        headers: {'Authorization': `Bearer ${tokenFromStorage}`}
+    });
+
+    return {
+        type: CREATE_SENSOR,
+        payload: request
+    };
+}
+
+export function createSensorSuccess(newSensor) {
+    return {
+        type: CREATE_SENSOR_SUCCESS,
+        payload: newSensor
+    };
+}
+
+export function createSensorFailure(error) {
+    return {
+        type: CREATE_SENSOR_FAILURE,
+        payload: error
+    };
+}
+
+export function resetNewSensor() {
+    return {
+        type: RESET_NEW_SENSOR
+    }
+};
 
 export function fetchSensor(id) {
     //const request = axios.get(`${ROOT_URL}/sensors/${id}`);
@@ -133,6 +173,32 @@ export function fetchSensor(id) {
 
 
 export function fetchSensors() {
+    const request = axios.get({
+        data: props,
+        url: `${ROOT_URL}/sensors`,
+        headers: {'Authorization': `Bearer ${tokenFromStorage}`}
+    });
+
+    axios.get(`${AUTH_URL}/signup`, { username, email, password },{ headers: {
+            "Content-Type": "application/json"
+
+
+        }}
+    )
+        .then(response => {
+            console.log(response);
+            dispatch({ type: AUTH_SIGNUP_SUCCESS });
+            console.log("ennen history");
+            // browserHistory.push('http://localhost:3080/sensors/list');
+            //debugger;
+            //this.props.dispatch(push('/signin'));
+            console.log("jälkeen history");
+        })
+        .catch(response => {
+            console.log(response.data);
+            dispatch(authError(response.data.error))
+        });
+
     return {
              type: FETCH_SENSORS,
              payload: [
@@ -232,40 +298,6 @@ export function deleteSensor(id, tokenFromStorage) {
 // };
 //
 //
-// export function createSensor(props, tokenFromStorage) {
-//     //const request = axios.post(`${ROOT_URL}/sensors`, props);
-//     const request = axios({
-//         method: 'post',
-//         data: props,
-//         url: `${ROOT_URL}/sensors`,
-//         headers: {'Authorization': `Bearer ${tokenFromStorage}`}
-//     });
-//
-//     return {
-//         type: CREATE_SENSOR,
-//         payload: request
-//     };
-// }
-//
-// export function createSensorSuccess(newSensor) {
-//     return {
-//         type: CREATE_SENSOR_SUCCESS,
-//         payload: newSensor
-//     };
-// }
-//
-// export function createSensorFailure(error) {
-//     return {
-//         type: CREATE_SENSOR_FAILURE,
-//         payload: error
-//     };
-// }
-//
-// export function resetNewSensor() {
-//     return {
-//         type: RESET_NEW_SENSOR
-//     }
-// };
 //
 // export function resetDeletedSensor() {
 //     return {

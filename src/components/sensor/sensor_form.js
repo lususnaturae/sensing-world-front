@@ -7,6 +7,19 @@ import * as actions from '../../actions';
 
 export class SensorForm extends Component {
 
+    handleFormSubmit({username, password}) {
+        // Need to do something to log user in
+        this.props.signinUser({username, password});
+    }
+    renderAlert() {
+        if (this.props.errorMessage) {
+            return (
+                <div className="alert alert-danger">
+                    <strong>Oops!</strong> {this.props.errorMessage}
+                </div>
+            );
+        }
+    }
     render() {
 
         const { handleSubmit, fields: { name, usage_token}} = this.props;
@@ -19,8 +32,8 @@ export class SensorForm extends Component {
                     {name.touched && name.error && <div className="error">{name.error}</div>}
                 </fieldset>
                 <fieldset className="form-group">
-                    <label>Password:</label>
-                    <input className="form-control" {...usage_token} type="password" />
+                    <label>Usage_token:</label>
+                    <input className="form-control" {...usage_token}  />
                     {usage_token.touched && usage_token.error && <div className="error">{usage_token.error}</div>}
                 </fieldset>
 

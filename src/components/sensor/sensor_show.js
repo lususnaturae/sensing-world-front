@@ -20,6 +20,11 @@ export class SensorShow extends Component {
         }
     }
 
+    handleFormSubmit({username, password}) {
+        // Need to do something to log user in
+        this.props.signinUser({username, password});
+    }
+
     onDeleteClick() {
         this.props.deleteSensor(this.props.params.id)
             .then(() => {

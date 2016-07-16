@@ -6,6 +6,7 @@ import * as actions from '../../actions';
 import {connect} from 'react-redux';
 import { Link } from 'react-router';
 
+
 import GoogleMap from '../google_map';
 
 // named export for unconnected component (for tests)
@@ -19,6 +20,7 @@ export class SensorsList extends Component {
     componentWillMount() {
 
         this.props.fetchSensors();
+        this.props.fetchSensorTypes();
         this.props.generateMarkers(this.props.sensors);
         //this.props.fetchSensor("1");
         //debugger;
@@ -98,7 +100,8 @@ function mapStateToProps(state) {
     return {
         sensorsList: state.sensors.sensorsList,
         sensorsMarkers: state.sensors.sensorsMarkers,
-        activeSensor: state.sensors.activeSensor
+        activeSensor: state.sensors.activeSensor,
+        sensorChoices: state.sensors.sensorChoices
     };
 }
 

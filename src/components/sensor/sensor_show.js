@@ -17,6 +17,7 @@ export class SensorShow extends Component {
 
         if (this.props.params) {
             this.props.fetchSensor(this.props.params.id);
+            this.props.fetchSensorTypes();
         }
     }
 

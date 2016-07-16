@@ -17,6 +17,9 @@ import {
     CREATE_SENSOR_SUCCESS_RESET,
     FETCH_SENSORS,
     FETCH_SENSOR,
+    FETCH_SENSOR_TYPE_CHOICELIST,
+    FETCH_ACTIVE_SENSOR_TYPE_DEFAULT_STATE,
+    CHANGE_ACTIVE_SENSOR_TYPE_STATE,
     DELETE_SENSOR,
     GENERATE_MARKERS
 } from './types';
@@ -175,28 +178,28 @@ export function fetchSensor(id) {
 export function fetchSensors() {
     const tokenFromStorage = localStorage.getItem('sensing_world_access_token');
 
-    axios.get(`${BASE_URL}/list`,
-        {  },
-        { headers: {
-            "Content-Type": "application/json",
-            'Authorization': `Bearer ${tokenFromStorage}`
-
-
-        }}
-    )
-        .then(response => {
-            console.log(response);
-            dispatch({ type: AUTH_SIGNUP_SUCCESS });
-            console.log("ennen history");
-            // browserHistory.push('http://localhost:3080/sensors/list');
-            //debugger;
-            //this.props.dispatch(push('/signin'));
-            console.log("jälkeen history");
-        })
-        .catch(response => {
-            console.log(response.data);
-            dispatch(authError(response.data.error))
-        });
+    // axios.get(`${BASE_URL}/list`,
+    //     {  },
+    //     { headers: {
+    //         "Content-Type": "application/json",
+    //         'Authorization': `Bearer ${tokenFromStorage}`
+    //
+    //
+    //     }}
+    // )
+    //     .then(response => {
+    //         console.log(response);
+    //         dispatch({ type: AUTH_SIGNUP_SUCCESS });
+    //         console.log("ennen history");
+    //         // browserHistory.push('http://localhost:3080/sensors/list');
+    //         //debugger;
+    //         //this.props.dispatch(push('/signin'));
+    //         console.log("jälkeen history");
+    //     })
+    //     .catch(response => {
+    //         console.log(response.data);
+    //         dispatch(authError(response.data.error))
+    //     });
 
     return {
              type: FETCH_SENSORS,
@@ -217,6 +220,84 @@ export function fetchSensors() {
 
 
 }
+
+export function fetchSensorTypes () {
+    return {
+        type: FETCH_SENSOR_TYPE_CHOICELIST,
+        payload: [
+            {
+                name: 'TMP',
+                label_token: "sensor_type_temperature",
+                isChecked: true
+            },
+            {
+                name: 'GPS',
+                label_token: "sensor_type_location",
+                isChecked: false
+            },
+            {
+                name: 'FLAG',
+                label_token: "sensor_type_boolean",
+                isChecked: false
+            },
+            {
+                name: 'HUM',
+                label_token: "sensor_type_humidity",
+                isChecked: false
+            },
+            {
+                name: 'LUX',
+                label_token: "sensor_type_illuminance",
+                isChecked: false
+            }
+        ]
+    }
+}
+
+export function changeActiveSensorTypeState(name, choices) {
+    const updatedChoices = choices.map((item) => {
+        if (item.name === name) {
+            item.isChecked = !item.isChecked;
+        }
+        return item;
+    })
+    return {
+         type: CHANGE_ACTIVE_SENSOR_TYPE_STATE,
+         payload: updatedChoices
+    }
+}
+
+export function fetchActiveSensorTypeState() {
+    return {
+        type: FETCH_ACTIVE_SENSOR_TYPE_DEFAULT_STATE,
+        payload: [
+            {
+                name: 'TMP',
+                isChecked: true
+            },
+            {
+                name: 'GPS',
+                isChecked: true
+            },
+            {
+                name: 'FLAG',
+                isChecked: false
+            },
+            {
+                name: 'HUM',
+                isChecked: false
+            },
+            {
+                name: 'LUX',
+                isChecked: false
+            },
+
+
+        ]
+    }
+}
+
+
 
 export function generateMarkers() {
     return {

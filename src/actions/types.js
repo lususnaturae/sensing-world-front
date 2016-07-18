@@ -45,5 +45,7 @@ export const GENERATE_MARKERS = 'GENERATE_MARKERS';
 
 //Sensor Types
 export const FETCH_SENSOR_TYPE_CHOICELIST = 'fetch_sensor_type_choicelist';
+export const FETCH_SENSOR_TYPE_CHOICELIST_SUCCESS = 'fetch_sensor_type_choicelist_success';
+export const FETCH_SENSOR_TYPE_CHOICELIST_FAILURE = 'fetch_sensor_type_choicelist_failure';
 export const FETCH_ACTIVE_SENSOR_TYPE_DEFAULT_STATE = 'fetch_active_sensor_type_default_state';
 export const CHANGE_ACTIVE_SENSOR_TYPE_STATE = 'change_active_sensor_type_state';

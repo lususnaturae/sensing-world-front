@@ -13,7 +13,7 @@ export class SensorForm extends Component {
     }
     handleFormSubmit({username, password}) {
         // Need to do something to log user in
-        this.props.signinUser({username, password});
+        //this.props.signinUser({username, password});
     }
     changeCheckBoxState(choice) {
         //debugger;
@@ -22,14 +22,14 @@ export class SensorForm extends Component {
     }
     renderSensorTypesCheckbox(choice) {
         return (
-            <div>
+            <div key={choice.id}>
             <label>
                 <input
                     type="checkbox"
                     checked={choice.isChecked}
                     onChange={this.changeCheckBoxState.bind(this, choice)}
                  />
-                {choice.label_token}
+                {choice.labeltoken}
             </label>
         </div>
         );
@@ -50,7 +50,7 @@ export class SensorForm extends Component {
 
         const { handleSubmit, fields: { name, usage_token}} = this.props;
         //debugger;
-        console.log(this.props.sensorChoices.choices);
+        //console.log(this.props.sensorChoices.choices);
         return (
             <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
                 <fieldset className="form-group">

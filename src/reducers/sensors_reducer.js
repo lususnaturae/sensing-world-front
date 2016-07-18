@@ -6,6 +6,8 @@ import {
     FETCH_SENSOR,
     GENERATE_MARKERS,
     FETCH_SENSOR_TYPE_CHOICELIST,
+FETCH_SENSOR_TYPE_CHOICELIST_SUCCESS,
+FETCH_SENSOR_TYPE_CHOICELIST_FAILURE,
     FETCH_ACTIVE_SENSOR_TYPE_DEFAULT_STATE,
     CHANGE_ACTIVE_SENSOR_TYPE_STATE
 } from '../actions/types';
@@ -34,8 +36,10 @@ export default function (state = INITIAL_STATE, action) {
             return {...state, sensorsMarkers: {markers: action.payload, error: null, loading: false}};
        case GENERATE_MARKERS:
             return {...state, sensorsMarkers: {markers: action.payload, error: null, loading: false}};
-        case FETCH_SENSOR_TYPE_CHOICELIST:
+        case FETCH_SENSOR_TYPE_CHOICELIST_SUCCESS:
             return {...state, sensorChoices: {choices: action.payload, error: null, loading: false}};
+       case FETCH_SENSOR_TYPE_CHOICELIST_FAILURE:
+            return {...state, sensorChoices: {choices: [], error: action.payload, loading: false}};
         case FETCH_ACTIVE_SENSOR_TYPE_DEFAULT_STATE:
             return {...state, activeSensorChoiceState: {choiceState: action.payload, error: null, loading: false}};
         case CHANGE_ACTIVE_SENSOR_TYPE_STATE:

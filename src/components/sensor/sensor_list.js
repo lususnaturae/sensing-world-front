@@ -20,7 +20,7 @@ export class SensorsList extends Component {
     componentWillMount() {
 
         this.props.fetchSensors();
-        this.props.fetchSensorTypes();
+        //this.props.fetchSensorTypes();
         this.props.generateMarkers(this.props.sensors);
         //this.props.fetchSensor("1");
         //debugger;

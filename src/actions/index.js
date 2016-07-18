@@ -92,12 +92,9 @@ export function signupUser({username, email, password}) {
         axios.post(`${AUTH_URL}/signup`, {username, email, password}, {
                 headers: {
                     "Content-Type": "application/json"
-
-
                 }
             }
-        )
-            .then(response => {
+        ).then(response => {
                 console.log(response);
                 dispatch({type: AUTH_SIGNUP_SUCCESS});
                 console.log("ennen history");

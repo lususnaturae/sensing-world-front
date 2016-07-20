@@ -12,6 +12,8 @@ export class SensorForm extends Component {
         //debugger;
     }
     handleFormSubmit({username, password}) {
+        console.log("save button pressed!!");
+        debugger;
         // Need to do something to log user in
         //this.props.signinUser({username, password});
     }

@@ -17,7 +17,11 @@ import {
     CREATE_SENSOR_FAILURE,
     CREATE_SENSOR_SUCCESS_RESET,
     FETCH_SENSORS,
+    FETCH_SENSORS_SUCCESS,
+    FETCH_SENSORS_FAILURE,
     FETCH_SENSOR,
+    FETCH_SENSOR_SUCCESS,
+    FETCH_SENSOR_FAILURE,
     FETCH_SENSOR_TYPE_CHOICELIST,
     FETCH_SENSOR_TYPE_CHOICELIST_SUCCESS,
     FETCH_SENSOR_TYPE_CHOICELIST_FAILURE,
@@ -27,9 +31,9 @@ import {
     GENERATE_MARKERS
 } from './types';
 
-// const ROOT_URL = location.href.indexOf('localhost') > 0 ? 'http://sensingworld.dev' : '/';
-const AUTH_URL = location.href.indexOf('localhost') > 0 ? 'http://localhost:8080' : '';
-const BASE_URL = location.href.indexOf('localhost') > 0 ? 'http://localhost:8888' : '';
+const AUTH_URL = 'http://auth.sensingworld.eu:8080';
+//const AUTH_URL = location.href.indexOf('localhost') > 0 ? 'http://localhost:8080' : '';
+const BASE_URL = 'http://base.sensingworld.eu:8888';
 
 // const SENSOR_URL = location.href.indexOf('localhost') > 0 ? 'http://sensors.sensingworld.dev/api' : '/api';
 // const SENSORLOG_URL = location.href.indexOf('localhost') > 0 ? 'http://sensorlog.sensingworld.dev/api' : '/api';
@@ -166,69 +170,63 @@ export function resetNewSensor() {
 };
 
 export function fetchSensor(id) {
-    //const request = axios.get(`${ROOT_URL}/sensors/${id}`);
+    const tokenFromStorage = localStorage.getItem('sensing_world_access_token');
+    return function (dispatch) {
+        axios.get(`${BASE_URL}/api/sensors/${id}`,
 
-    return {
-        type: FETCH_SENSOR,
-        payload: {
-            id: 2,
-            name: 'Kitchen temperature',
-            usage_token: 'Temperature',
-            lat: 61.466306,
-            lon: 24.050828
-        }
-    };
+            { headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${tokenFromStorage}`
+            }}
+        )
+            .then(response => {
+                //console.log(response);
+                dispatch({ type: FETCH_SENSOR_SUCCESS,
+                    payload: response.data});
+                //console.log("ennen history");
+                // browserHistory.push('http://localhost:3080/sensors/list');
+                //debugger;
+                //this.props.dispatch(push('/signin'));
+                //console.log("jälkeen history");
+            })
+            .catch(response => {
+                //console.log(response.data);
+                dispatch({ type: FETCH_SENSOR_FAILURE,
+                    payload: response.data.error})
+            });
+
+    }
+
 }
 
 
 export function fetchSensors() {
-    const tokenFromStorage = localStorage.getItem('sensing_world_access_token');
+    return function (dispatch) {
+        const tokenFromStorage = localStorage.getItem('sensing_world_access_token');
+        axios.get(`${BASE_URL}/api/sensors/list`,
 
-    // axios.get(`${BASE_URL}/list`,
-    //     {  },
-    //     { headers: {
-    //         "Content-Type": "application/json",
-    //         'Authorization': `Bearer ${tokenFromStorage}`
-    //
-    //
-    //     }}
-    // )
-    //     .then(response => {
-    //         console.log(response);
-    //         dispatch({ type: AUTH_SIGNUP_SUCCESS });
-    //         console.log("ennen history");
-    //         // browserHistory.push('http://localhost:3080/sensors/list');
-    //         //debugger;
-    //         //this.props.dispatch(push('/signin'));
-    //         console.log("jälkeen history");
-    //     })
-    //     .catch(response => {
-    //         console.log(response.data);
-    //         dispatch(authError(response.data.error))
-    //     });
+            { headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${tokenFromStorage}`
+            }}
+        )
+            .then(response => {
+                //console.log(response);
+                dispatch({ type: FETCH_SENSORS_SUCCESS,
+                payload: response.data});
+                //console.log("ennen history");
+                // browserHistory.push('http://localhost:3080/sensors/list');
+                //debugger;
+                //this.props.dispatch(push('/signin'));
+                //console.log("jälkeen history");
+            })
+            .catch(response => {
+                //console.log(response.data);
+                dispatch({ type: FETCH_SENSORS_FAILURE,
+                    payload: response.data.error})
+            });
 
-    return {
-        type: FETCH_SENSORS,
-        payload: [
-            {
-                id: 1,
-                name: 'Outside temperature',
-                usage_token: 'Temperature',
-                lat: 61.466473,
-                lon: 24.050716
-            },
-            {
-                id: 2,
-                name: 'Kitchen temperature',
-                usage_token: 'Temperature',
-                lat: 61.466306,
-                lon: 24.050828
-            }
-
-        ]
-    };
-
-
+    }
 }
 
 export function fetchSensorTypes() {
@@ -236,6 +234,7 @@ export function fetchSensorTypes() {
         const tokenFromStorage = localStorage.getItem('sensing_world_access_token');
 
         const url = `${BASE_URL}/api/sensors/datatypelist`;
+        //const url = `http://base.sensingworld.eu:8888/api/sensors/datatypelist`;
         const config = {
             headers: {
                 "Authorization": 'Bearer ' + tokenFromStorage,

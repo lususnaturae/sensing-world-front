@@ -1,9 +1,15 @@
 /**
  * Created by marco on 17.6.2016.
  */
+//import * as _ from 'lodash';
+
 import {
     FETCH_SENSORS,
+    FETCH_SENSORS_SUCCESS,
+    FETCH_SENSORS_FAILURE,
     FETCH_SENSOR,
+    FETCH_SENSOR_SUCCESS,
+    FETCH_SENSOR_FAILURE,
     GENERATE_MARKERS,
     FETCH_SENSOR_TYPE_CHOICELIST,
 FETCH_SENSOR_TYPE_CHOICELIST_SUCCESS,
@@ -28,9 +34,9 @@ export default function (state = INITIAL_STATE, action) {
     //console.log(state);
     //console.log(action);
     switch (action.type) {
-        case FETCH_SENSOR:
+        case FETCH_SENSOR_SUCCESS:
             return {...state, activeSensor: {sensor: action.payload, error: null, loading: false}};
-        case FETCH_SENSORS:
+        case FETCH_SENSORS_SUCCESS:
             return {...state, sensorsList: {sensors: action.payload, error: null, loading: false}};
         case GENERATE_MARKERS:
             return {...state, sensorsMarkers: {markers: action.payload, error: null, loading: false}};

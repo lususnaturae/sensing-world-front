@@ -9,7 +9,6 @@ import * as actions from '../../actions';
 export class SensorForm extends Component {
     componentWillMount() {
         this.props.fetchSensorTypes();
-        //debugger;
     }
     handleFormSubmit({username, password}) {
         console.log("save button pressed!!");
@@ -64,7 +63,7 @@ export class SensorForm extends Component {
                 {this.props.sensorChoices.choices.map(this.renderSensorTypesCheckbox, this)}
 
                 {this.renderAlert()}
-                <button action="submit" className="btn btn-primary">Save</button>
+                <button action="submit" className="btn btn-primary">Save (0.1)</button>
             </form>
 
         );

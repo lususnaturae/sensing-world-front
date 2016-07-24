@@ -36,6 +36,16 @@ export class SensorShow extends Component {
             })
     }
 
+    renderSensorTypes(choice) {
+        return (
+            <div key={choice.id}>
+
+                    {choice.labeltoken}
+
+            </div>
+        );
+    }
+
     renderTemperature() {
 
         const temps = [10,11,12,13,15,20,22,24,22,18,15,14,10];
@@ -65,7 +75,8 @@ export class SensorShow extends Component {
                     className="btn btn-danger pull-xs-right"
                     onClick={this.onDeleteClick.bind(this)}>Delete Sensor</button>
                 <h3>{sensor.name}</h3>
-                <h6>USage: {sensor.usage_token}</h6>
+                <h6>Usage: </h6>
+                {this.props.sensorChoices.choices.map(this.renderSensorTypes, this)}
                 <p>{sensor.lat}, {sensor.lon}</p>
             </div>
                 <div>
